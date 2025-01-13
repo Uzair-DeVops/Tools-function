@@ -56,3 +56,33 @@ def get_stock_price(symbol: str) -> str:
         return f"Request error occurred: {req_err}\nTool used: get_stock_price"
     except Exception as err:
         return f"An unexpected error occurred: {err}\nTool used: get_stock_price"
+
+@tool
+def get_weather(location: str) -> str:
+    """Fetch the current weather for a given location.
+
+     Args:
+      location (str): The name of the city or area.
+
+     Returns:
+      str: A summary of the weather, including temperature and conditions, or an error message if not found.
+
+     Example:
+           >>> get_weather("New York")
+       "Weather in New York: Clear skies, 22°C."
+    """
+
+
+    api_key = "e472e9e4cfc93670c3cb249f26576ad9"  # Replace with your OpenWeatherMap API key
+    url = f"http://api.openweathermap.org/data/2.5/weather?q={location}&appid={api_key}&units=metric"
+
+    try:
+        response = requests.get(url)
+        response.raise_for_status()
+        weather = response.json()
+        return (f"Weather in {location}: {weather['weather'][0]['description'].capitalize()}, "
+                f"{weather['main']['temp']}°C.")
+    except Exception as e:
+        return f"Error fetching weather: {e}"
+
+       
