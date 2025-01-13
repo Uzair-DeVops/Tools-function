@@ -1,13 +1,13 @@
 from langchain_google_genai import ChatGoogleGenerativeAI
-from Tools import multiply
+from Tools import multiply,divide
 from langchain.agents import initialize_agent, AgentType
 
 
 GOOGLE_API_KEY = "AIzaSyDlGuiJOqQePVsQEu5gWiftb74RDGvcq-c"
 
-llm = ChatGoogleGenerativeAI(model = "model-gemini-2.0-flash-exp" ,api_key=GOOGLE_API_KEY)
+llm = ChatGoogleGenerativeAI(model = "gemini-2.0-flash-exp" ,api_key=GOOGLE_API_KEY)
 
-tools = [multiply]
+tools = [multiply,divide]
 
 agent = initialize_agent(
     tools,
@@ -16,7 +16,7 @@ agent = initialize_agent(
     )
 
 
-response = agent.invoke("8*9")
+response = agent.invoke("8/9")
 print(response)
 
 

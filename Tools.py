@@ -8,3 +8,11 @@ def multiply(a,b):
     """
     return a * b
 
+@tool
+def divide(a,b):
+    """ 
+    A tool that divides two numbers.
+    
+    """
+    return a / b
+
