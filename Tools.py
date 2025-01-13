@@ -7,3 +7,4 @@ def multiply(a,b):
     A tool that multiplies two numbers.
     """
     return a * b
+
