@@ -26,5 +26,5 @@ print(response) # prints the current stock price of AAPL
 
 # using weather tool
 response = agent.invoke("what is the weather of Sheikhupura")
-print(response, "Thanks For Asking Me") # prints the weather in New York
+print(response, "Thanks For Asking Me") # prints the weather in Sheikhupura
 
