@@ -1,5 +1,5 @@
 from langchain_google_genai import ChatGoogleGenerativeAI
-from Tools import multiply,divide,get_stock_price,get_weather
+from Tools import calculator,get_stock_price,get_weather
 from langchain.agents import initialize_agent, AgentType
 
 
@@ -7,7 +7,7 @@ GOOGLE_API_KEY = "AIzaSyDlGuiJOqQePVsQEu5gWiftb74RDGvcq-c"
 
 llm = ChatGoogleGenerativeAI(model = "gemini-2.0-flash-exp" ,api_key=GOOGLE_API_KEY)
 
-tools = [multiply,divide,get_stock_price,get_weather]
+tools = [calculator,get_stock_price,get_weather]
 
 agent = initialize_agent(
     tools,
@@ -27,4 +27,8 @@ print(response) # prints the current stock price of AAPL
 # using weather tool
 response = agent.invoke("what is the weather of Sheikhupura")
 print(response, "Thanks For Asking Me") # prints the weather in Sheikhupura
+
+# using calculator tool
+response = agent.invoke("3*4/(5/4+45*4)")
+print(response) # prints the result of the calculation
 

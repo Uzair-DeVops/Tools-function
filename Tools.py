@@ -3,19 +3,38 @@ import requests
 
 
 @tool
-def multiply(a,b):
+def calculator(expression: str) -> float:
     """
-    A tool that multiplies two numbers.
-    """
-    return a * b
+    Evaluates a given mathematical expression.
 
-@tool
-def divide(a,b):
-    """ 
-    A tool that divides two numbers.
-    
+    This function takes a mathematical expression as a string, evaluates it, and returns the result.
+    It handles basic arithmetic, parentheses, and more complex mathematical calculations.
+
+    Args:
+        expression (str): A mathematical expression to evaluate, e.g., "3 + 5 * (2 - 8)".
+
+    Returns:
+        Union[float, str]: The result of the evaluated expression, or an error message if invalid.
+
+    Example:
+        >>> evaluate_expression("3 + 5 * 2")
+        13.0
+        >>> evaluate_expression("2 / 0")
+        'Error: Division by zero.'
+        >>> evaluate_expression("invalid + expression")
+        'Error: Invalid input.'
     """
-    return a / b
+    try:
+        # Use eval to compute the result securely
+        result = eval(expression, {"__builtins__": None}, {})
+        if isinstance(result, (int, float)):  # Ensure result is a number
+            return result
+        else:
+            return "Error: Invalid mathematical expression."
+    except ZeroDivisionError:
+        return "Error: Division by zero."
+    except Exception:
+        return "Error: Invalid input."
 
 @tool
 def get_stock_price(symbol: str) -> str:
