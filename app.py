@@ -1,5 +1,5 @@
 from langchain_google_genai import ChatGoogleGenerativeAI
-from Tools import calculator,get_stock_price,get_weather
+from Tools import calculator,get_stock_price,get_weather,google_search_tool
 from langchain.agents import initialize_agent, AgentType
 
 
@@ -32,3 +32,8 @@ print(response, "Thanks For Asking Me") # prints the weather in Sheikhupura
 response = agent.invoke("3*4/(5/4+45*4)")
 print(response) # prints the result of the calculation
 
+# using google search tool
+response = agent.invoke("what is the capital of France")
+print(response) # prints the capital of France
+
+# until here the code is working fine

@@ -1,5 +1,6 @@
 from langchain_core.tools import tool 
 import requests
+from googlesearch import search
 
 
 @tool
@@ -104,4 +105,22 @@ def get_weather(location: str) -> str:
     except Exception as e:
         return f"Error fetching weather: {e}"
 
-       
+
+@tool
+def google_search_tool(query: str, num_results: int = 5):
+    """
+    Perform a Google search for a given query and return the top results.
+
+    Args:
+        query (str): The search query.
+        num_results (int): Number of search results to return. Default is 5.
+
+    Returns:
+        list: A list of URLs for the top search results.
+    """
+    try:
+        # Perform the search
+        results = search(query, num_results=num_results)
+        return list(results)
+    except Exception as e:
+        return f"An error occurred during the search: {e}"
