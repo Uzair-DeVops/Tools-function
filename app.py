@@ -54,5 +54,5 @@ input_data = {
         "to_currency": to_currency,
     }
 
-result = currency_converter_tool.invoke(input_data)
+result = currency_converter_tool.invoke(input_data) # .invoke method takes less than 3 arguments Thats why we are passing input_data as a dictionary
 print(result)
