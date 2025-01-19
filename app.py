@@ -1,5 +1,5 @@
 from langchain_google_genai import ChatGoogleGenerativeAI
-from Tools import calculator,get_stock_price,get_weather,google_search_tool
+from Tools import calculator,get_stock_price,get_weather,google_search_tool,currency_converter_tool
 from langchain.agents import initialize_agent, AgentType
 
 
@@ -37,3 +37,22 @@ response = agent.invoke("what is the capital of France")
 print(response) # prints the capital of France
 
 # until here the code is working fine
+
+
+# using currency converter tool
+api_key = "6524ce887b12b275fe97c2ef"  # Replace with your actual API key
+print("Currency Converter Tool")
+print("------------------------")
+from_currency = input("\033[34mEnter the source currency code (e.g., USD):\033[0m ").strip().upper()
+to_currency = input("\033[34mEnter the target currency code (e.g., EUR): \033[0m ").strip().upper()
+amount = float(input("\033[34mEnter the amount to convert:\033[0m "))
+
+input_data = {
+        "api_key": api_key,
+        "amount": amount,
+        "from_currency": from_currency,
+        "to_currency": to_currency,
+    }
+
+result = currency_converter_tool.invoke(input_data)
+print(result)

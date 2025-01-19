@@ -124,3 +124,74 @@ def google_search_tool(query: str, num_results: int = 5):
         return list(results)
     except Exception as e:
         return f"An error occurred during the search: {e}"
+    
+    # Currency Converter Tool
+# This code fetches real-time currency exchange rates and converts an amount from one currency to another.
+
+import requests
+
+def get_exchange_rate(api_key, from_currency, to_currency):
+    """
+    Fetch the exchange rate from a currency to another using an API.
+    
+    Args:
+        api_key (str): API key for the exchange rate service.
+        from_currency (str): The source currency code (e.g., 'USD').
+        to_currency (str): The target currency code (e.g., 'EUR').
+        
+    Returns:
+        float: The exchange rate from the source to the target currency.
+    """
+    url = f"https://open.er-api.com/v6/latest/{from_currency}"
+    response = requests.get(url, params={"apikey": api_key})
+    
+    if response.status_code == 200:
+        data = response.json()
+        if "rates" in data and to_currency in data["rates"]:
+            return data["rates"][to_currency]
+        else:
+            raise ValueError(f"Target currency {to_currency} not found in response.")
+    else:
+        raise ConnectionError(f"Failed to fetch exchange rates. HTTP Status: {response.status_code}")
+
+@tool("Currency Converter Tool")
+def currency_converter_tool(api_key: str, amount: float, from_currency: str, to_currency: str) -> str:
+    """
+    Convert an amount from one currency to another using real-time exchange rates.
+
+    Args:
+        api_key (str): API key for the exchange rate service.
+        amount (float): The amount to convert.
+        from_currency (str): The source currency code (e.g., 'USD').
+        to_currency (str): The target currency code (e.g., 'EUR').
+
+    Returns:
+        str: The converted amount in the target currency.
+    """
+    url = f"https://open.er-api.com/v6/latest/{from_currency}"
+    try:
+        response = requests.get(url, params={"apikey": api_key})
+        if response.status_code == 200:
+            data = response.json()
+            if "rates" in data and to_currency in data["rates"]:
+                exchange_rate = data["rates"][to_currency]
+                converted_amount = amount * exchange_rate
+                return f"{amount:.2f} {from_currency} is equivalent to {converted_amount:.2f} {to_currency}."
+            else:
+                return f"Target currency {to_currency} not found in the exchange rates."
+        else:
+            return f"Failed to fetch exchange rates. HTTP Status: {response.status_code}"
+    except Exception as e:
+        return f"An error occurred: {str(e)}"
+
+# Example usage in a LangChain setup
+
+    api_key = "6524ce887b12b275fe97c2ef"  # Replace with your actual API key
+    print("Currency Converter Tool")
+    print("------------------------")
+    from_currency = input("Enter the source currency code (e.g., USD): ").strip().upper()
+    to_currency = input("Enter the target currency code (e.g., EUR): ").strip().upper()
+    amount = float(input("Enter the amount to convert: "))
+
+    result = currency_converter_tool(api_key, amount, from_currency, to_currency)
+    print(result)
