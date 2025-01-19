@@ -7,7 +7,7 @@ GOOGLE_API_KEY = "AIzaSyDlGuiJOqQePVsQEu5gWiftb74RDGvcq-c"
 
 llm = ChatGoogleGenerativeAI(model = "gemini-2.0-flash-exp" ,api_key=GOOGLE_API_KEY)
 
-tools = [calculator,get_stock_price,get_weather]
+tools = [calculator,get_stock_price,get_weather,google_search_tool,currency_converter_tool]
 
 agent = initialize_agent(
     tools,
@@ -40,7 +40,7 @@ print(response) # prints the capital of France
 
 
 # using currency converter tool
-api_key = "6524ce887b12b275fe97c2ef"  # Replace with your actual API key
+api_key = "EXCHANGE_RATE_API"  # Replace with your actual API key
 print("Currency Converter Tool")
 print("------------------------")
 from_currency = input("\033[34mEnter the source currency code (e.g., USD):\033[0m ").strip().upper()
