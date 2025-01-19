@@ -3,7 +3,7 @@ from Tools import calculator,get_stock_price,get_weather,google_search_tool,curr
 from langchain.agents import initialize_agent, AgentType
 
 
-GOOGLE_API_KEY = "AIzaSyDlGuiJOqQePVsQEu5gWiftb74RDGvcq-c"
+GOOGLE_API_KEY = "GEMINI_API_KEY"
 
 llm = ChatGoogleGenerativeAI(model = "gemini-2.0-flash-exp" ,api_key=GOOGLE_API_KEY)
 
